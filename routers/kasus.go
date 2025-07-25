@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/voxtmault/psc/controllers"
+	"github.com/voxtmault/psc/db"
 	"github.com/voxtmault/psc/services"
 )
 
@@ -11,7 +12,7 @@ import (
 func KasusRoute(root *echo.Group) error {
 	route := root.Group("/kasus")
 
-	service := services.NewKasusService(nil, nil)
+	service := services.NewKasusService(db.GetDBCon(), nil)
 	controllers := controllers.NewKasusController(service)
 
 	route.Use(middleware.RemoveTrailingSlash())
