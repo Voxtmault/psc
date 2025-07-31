@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/voxtmault/psc/controllers"
 	"github.com/voxtmault/psc/db"
+	projectMiddleware "github.com/voxtmault/psc/middleware"
 	"github.com/voxtmault/psc/services"
 )
 
@@ -16,6 +17,7 @@ func KasusRoute(root *echo.Group) error {
 	controllers := controllers.NewKasusController(service)
 
 	route.Use(middleware.RemoveTrailingSlash())
+	route.Use(projectMiddleware.VerifyToken)
 	route.GET("", controllers.Get3)
 	route.POST("", controllers.Create)
 

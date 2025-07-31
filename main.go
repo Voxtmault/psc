@@ -9,9 +9,11 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
 	slogmulti "github.com/samber/slog-multi"
 	"github.com/voxtmault/psc/config"
 	"github.com/voxtmault/psc/db"
+
 	logging "github.com/voxtmault/psc/logging"
 	"github.com/voxtmault/psc/routers"
 	"github.com/voxtmault/psc/validator"
@@ -106,6 +108,7 @@ func main() {
 	e.Validator = validator.GetEchoAdapter()
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
+	e.Use(middleware.CSRF())
 	e.Use(middleware.Secure())
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogStatus:    true,
